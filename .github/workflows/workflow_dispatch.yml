@@ -2,6 +2,8 @@ name: workflow_dispacth
 
 on: workflow_dispatch
 
+permissions: {}
+
 jobs:
   cache:
     runs-on: ubuntu-latest
