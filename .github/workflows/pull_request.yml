@@ -1,0 +1,23 @@
+name: pull_request
+
+on: pull_request
+
+permissions: {}
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Primes
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: prime-numbers
+          key: ${{ runner.os }}-primes
+      - name: Print Prime Numbers
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: cat prime-numbers
+      - name: Generate Prime Numbers
+        # if: steps.cache.outputs.cache-hit != 'true'
+        run: echo "pull_request" > prime-numbers
