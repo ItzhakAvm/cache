@@ -1,0 +1,22 @@
+name: workflow_dispacth
+
+on: workflow_dispatch
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Primes
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: prime-numbers
+          key: ${{ runner.os }}-primes
+      - name: Generate Prime Numbers
+        if: steps.cache-primes.outputs.cache-hit != 'true'
+        run: echo "workflow_dispacth" > prime-numbers
+      - name: Print Prime Numbers
+        if: steps.cache-primes.outputs.cache-hit == 'true'
+        run: cat prime-numbers
+  
