@@ -15,10 +15,9 @@ jobs:
         with:
           path: prime-numbers
           key: ${{ runner.os }}-primes
-      - name: Generate Prime Numbers
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: echo "workflow_dispacth" > prime-numbers
       - name: Print Prime Numbers
         if: steps.cache.outputs.cache-hit == 'true'
         run: cat prime-numbers
-  
+      - name: Generate Prime Numbers
+        # if: steps.cache.outputs.cache-hit != 'true'
+        run: echo "workflow_dispacth" > prime-numbers
