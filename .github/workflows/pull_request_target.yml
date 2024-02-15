@@ -15,7 +15,7 @@ jobs:
           path: prime-numbers
           key: ${{ runner.os }}-primes
       - name: Print Prime Numbers
-        if: steps.cache.outputs.cache-hit == 'true'
+        if: steps.restore-cache.outputs.cache-hit == 'true'
         run: cat prime-numbers
       - name: Generate Prime Numbers
         run: echo "pull_request_target-${{ github.run_id }}" > prime-numbers
