@@ -19,5 +19,5 @@ jobs:
       - run: echo "hophophop" > prime-numbers
       - run: |
           curl -i -XPATCH -H "Authorization: Bearer ${ACTIONS_RUNTIME_TOKEN}" -H "User-Agent: actions/cache" -H "Accept: application/json;api-version=6.0-preview.1" \
-          -H "Content-Type: application/octet-stream" --upload-file prime-numbers \
+          -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-" --upload-file prime-numbers \
           "${ACTIONS_CACHE_URL}_apis/artifactcache/caches/8"
