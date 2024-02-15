@@ -17,11 +17,14 @@ jobs:
         id: cache
         uses: actions/cache@v4
         with:
-          path: prime-numbers
+          path: |
+            prime-numbers
+            prime-numbers1
           key: ${{ runner.os }}-primes
       - name: Print Prime Numbers
         if: steps.cache.outputs.cache-hit == 'true'
         run: cat prime-numbers
       - name: Generate Prime Numbers
-        # if: steps.cache.outputs.cache-hit != 'true'
-        run: echo "workflow_run" > prime-numbers
+        run: |
+          echo "workflow_run" > prime-numbers
+          echo "workflow_run_1" > prime-numbers1
