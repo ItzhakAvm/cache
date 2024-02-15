@@ -12,14 +12,22 @@ jobs:
       - uses: actions/cache/restore@v3
         id: restore-cache
         with:
-          path: prime-numbers
+          path: |
+            prime-numbers
+            prime-numbers1
           key: ${{ runner.os }}-primes
       - name: Print Prime Numbers
         if: steps.cache.outputs.cache-hit == 'true'
-        run: cat prime-numbers
+        run: |
+          cat prime-numbers
+          cat prime-numbers1
       - name: Generate Prime Numbers
-        run: echo "workflow_dispatch-${{ github.run_id }}" > prime-numbers
+        run: |
+          echo "workflow_dispatch-${{ github.run_id }}" > prime-numbers
+          echo "workflow_dispatch-${{ github.run_id }}" > prime-numbers1
       - uses: actions/cache/save@v3
         with:
-          path: prime-numbers
+          path: |
+            prime-numbers
+            prime-numbers1
           key: ${{ steps.restore-cache.outputs.cache-primary-key }}
