@@ -1,4 +1,4 @@
-name: workflow_dispacth
+name: workflow_dispatch
 
 on: workflow_dispatch
 
@@ -9,9 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Cache Primes
-        id: cache
-        uses: actions/cache@v4
+      - uses: actions/cache/restore@v3
+        id: restore-cache
         with:
           path: prime-numbers
           key: ${{ runner.os }}-primes
@@ -19,5 +18,8 @@ jobs:
         if: steps.cache.outputs.cache-hit == 'true'
         run: cat prime-numbers
       - name: Generate Prime Numbers
-        # if: steps.cache.outputs.cache-hit != 'true'
-        run: echo "workflow_dispacth" > prime-numbers
+        run: echo "workflow_dispatch-${{ github.run_id }}" > prime-numbers
+      - uses: actions/cache/save@v3
+        with:
+          path: prime-numbers
+          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
